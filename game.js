@@ -93,8 +93,8 @@ function pickMode(mode){
 function startCharacter(id){
   state.char=id;
 
-  const scenes=(D.scenes&&D.scenes[state.mode])||D.scenarios||[]:
-  const first=scenes.find(s=>!s.character||s.character===id)||scenes[0];
+  const scenes=D.scenarios||[];
+  const first=scenes.[0];
 
   if(!first){
     alert("這個角色的故事正在製作中");
