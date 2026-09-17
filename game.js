@@ -1,4 +1,6 @@
+
 (()=>{
+alert("game.js 已成功啟動");
 const D=window.GAME_DATA||{};
 const KEY="yunchuan-v06-save";
 
