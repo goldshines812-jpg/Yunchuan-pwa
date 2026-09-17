@@ -113,7 +113,7 @@ function play(id){
     return;
   }
 
-  const scenes=(D.scenes&&D.scenes[state.mode])||D.scenarios||[]:
+  const scenes=D.scenarios||[]:
   const scene=scenes.find(s=>s.id===id);
 
   if(!scene){
