@@ -1,4 +1,4 @@
-
+document.addEventListener("DOMContentLoaded",()=>alert("最小測試成功"));
 (()=>{
 alert("game.js 已成功啟動");
 const D=window.GAME_DATA||{};
