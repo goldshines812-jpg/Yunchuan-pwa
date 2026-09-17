@@ -93,7 +93,7 @@ function pickMode(mode){
 function startCharacter(id){
   state.char=id;
 
-  const scenes=(D.scenes&&D.scenes[state.mode])||[];
+  const scenes=(D.scenes&&D.scenes[state.mode])||D.scenarios||[]:
   const first=scenes.find(s=>!s.character||s.character===id)||scenes[0];
 
   if(!first){
@@ -113,7 +113,7 @@ function play(id){
     return;
   }
 
-  const scenes=(D.scenes&&D.scenes[state.mode])||[];
+  const scenes=(D.scenes&&D.scenes[state.mode])||D.scenarios||[]:
   const scene=scenes.find(s=>s.id===id);
 
   if(!scene){
