@@ -66,7 +66,7 @@ function pickMode(mode){alert("模式按鈕成功：" + mode);
   box.classList.remove("hidden");
 
   const list=(D.characters&&D.characters[mode])||[];
-alert("mode=" + mode + "，角色數量=" + list.length);
+alert("mode=" + mode + "｜boy=" + (D.characters?.boy?.length) + "｜girl=" + (D.characters?.girl?.length) + "｜free=" + (D.characters?.free?.length));
   let html="<h2>選擇角色</h2>";
 
   if(!list.length){
