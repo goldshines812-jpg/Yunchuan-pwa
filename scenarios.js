@@ -77,19 +77,19 @@ window.GAME_DATA={
           effects:{affection:2,trust:0,spark:3},
           reply:"對方笑了一下：「你都這樣跟人聊天喔？」",
           analysis:"帶有玩笑感，可能製造心動，但要觀察對方是否喜歡這種互動。"
-        },
+        next:"chat_01"},
         {
           text:"「有可能耶，你常來這附近嗎？」",
           effects:{affection:2,trust:3,spark:1},
           reply:"對方點點頭：「偶爾啊，你呢？」",
           analysis:"自然延續話題，給對方充分回應空間。"
-        },
+       next:"chat_01" },
         {
           text:"「應該沒有吧。」",
           effects:{affection:0,trust:1,spark:0},
           reply:"對方笑笑：「好吧，可能我認錯人了。」",
-          analysis:"安全但較難延續，可以再補一個開放式問題。"
-        }
+          analysis:"安全但較難延續，可以再補一個開放式問題。",
+       next:"chat_01" }
       ]
     },
 
