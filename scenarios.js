@@ -1,3 +1,4 @@
+alert("scenarios.js 有執行");
 window.GAME_DATA={
   version:"0.6",
   characters:{
