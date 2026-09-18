@@ -12,7 +12,7 @@
 <div class="app">
 
   <header>
-    <div>暈船啦！・VERSION 3.0</div>
+    <div>暈船啦！・VERSION 3.1</div>
     <h1>戀愛互動</h1>
   </header>
 
@@ -25,29 +25,21 @@
       <strong id="score">50</strong>
     </p>
 
-    <div id="story">
-      你們第一次見面，對方微笑著看著你。
-    </div>
+    <div id="story"></div>
 
     <br>
 
     <div id="choices">
 
-      <button type="button" onclick="choose(10)">
-        A. 主動跟對方打招呼 😊
-      </button>
+      <button id="choiceA" type="button"></button>
 
       <br><br>
 
-      <button type="button" onclick="choose(5)">
-        B. 害羞地笑一下 😳
-      </button>
+      <button id="choiceB" type="button"></button>
 
       <br><br>
 
-      <button type="button" onclick="choose(-10)">
-        C. 假裝沒看到 😐
-      </button>
+      <button id="choiceC" type="button"></button>
 
     </div>
 
@@ -72,11 +64,74 @@ document.getElementById("characterName").textContent =
 let score = 50;
 let round = 0;
 
-const stories = [
-  "對方問你：平常休假喜歡做什麼？",
-  "聊天聊了一會兒，對方突然問：你現在有喜歡的人嗎？",
-  "約會快結束了，對方看著你問：下次還可以再見面嗎？"
+const questions = [
+
+  {
+    story: "第一次見面，對方微笑著看著你。你會怎麼做？",
+    choices: [
+      { text: "A. 主動跟對方打招呼 😊", points: 10 },
+      { text: "B. 害羞地笑一下 😳", points: 5 },
+      { text: "C. 假裝沒看到 😐", points: -10 }
+    ]
+  },
+
+  {
+    story: "對方問你：平常休假最喜歡做什麼？",
+    choices: [
+      { text: "A. 認真分享自己的興趣 🎵", points: 10 },
+      { text: "B. 反問對方喜歡做什麼 ☕", points: 8 },
+      { text: "C. 隨便啦，都可以 😶", points: -5 }
+    ]
+  },
+
+  {
+    story: "聊天時，對方突然問：你現在有喜歡的人嗎？",
+    choices: [
+      { text: "A. 笑著說：可能就在我面前 ❤️", points: 15 },
+      { text: "B. 說目前還沒有 😊", points: 5 },
+      { text: "C. 說這是秘密 🙈", points: 0 }
+    ]
+  },
+
+  {
+    story: "約會快結束了，對方問：下次還可以再見面嗎？",
+    choices: [
+      { text: "A. 當然，我也很期待 💗", points: 15 },
+      { text: "B. 有機會可以啊 🙂", points: 5 },
+      { text: "C. 最近應該都很忙 😅", points: -10 }
+    ]
+  }
+
 ];
+
+const storyBox = document.getElementById("story");
+const choiceA = document.getElementById("choiceA");
+const choiceB = document.getElementById("choiceB");
+const choiceC = document.getElementById("choiceC");
+
+function showQuestion() {
+
+  const q = questions[round];
+
+  storyBox.textContent = q.story;
+
+  choiceA.textContent = q.choices[0].text;
+  choiceB.textContent = q.choices[1].text;
+  choiceC.textContent = q.choices[2].text;
+
+  choiceA.onclick = function() {
+    choose(q.choices[0].points);
+  };
+
+  choiceB.onclick = function() {
+    choose(q.choices[1].points);
+  };
+
+  choiceC.onclick = function() {
+    choose(q.choices[2].points);
+  };
+
+}
 
 function choose(points) {
 
@@ -92,46 +147,40 @@ function choose(points) {
 
   document.getElementById("score").textContent = score;
 
-  if (round < stories.length) {
+  round++;
 
-    document.getElementById("story").textContent =
-      stories[round];
-
-    round++;
-
+  if (round < questions.length) {
+    showQuestion();
   } else {
-
     showEnding();
-
   }
 
 }
 
 function showEnding() {
 
-  const story = document.getElementById("story");
-  const choices = document.getElementById("choices");
-
-  choices.style.display = "none";
+  document.getElementById("choices").style.display = "none";
 
   if (score >= 80) {
 
-    story.textContent =
-      "💗 完美結局：你們對彼此都有好感，新的戀愛故事正式開始！";
+    storyBox.textContent =
+      "💗 完美結局：你們對彼此都有好感，決定正式開始約會！";
 
-  } else if (score >= 50) {
+  } else if (score >= 55) {
 
-    story.textContent =
-      "💕 曖昧結局：你們決定繼續聯絡，看看未來會發生什麼。";
+    storyBox.textContent =
+      "💕 曖昧結局：你們交換了訊息，決定繼續認識彼此。";
 
   } else {
 
-    story.textContent =
-      "💔 朋友結局：這次沒有擦出愛情火花，但也許你們更適合當朋友。";
+    storyBox.textContent =
+      "💔 朋友結局：這次沒有擦出愛情火花，但你們留下了一段回憶。";
 
   }
 
 }
+
+showQuestion();
 
 </script>
 
