@@ -81,6 +81,7 @@ function pickMode(mode){
     `;
   });
 
+
   html+=`<button id="backMode">← 回模式首頁</button>`;
   box.innerHTML=html;
 
@@ -96,7 +97,7 @@ function startCharacter(id){
   state.char=id;
 
   const scenes=D.scenarios||[];
-  const first=scenes.[0];
+  const first=scenes[0];
 
   if(!first){
     alert("這個角色的故事正在製作中");
@@ -115,7 +116,7 @@ function play(id){
     return;
   }
 
-  const scenes=D.scenarios||[]:
+  const scenes=D.scenarios||[];
   const scene=scenes.find(s=>s.id===id);
 
   if(!scene){
