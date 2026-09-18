@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded",()=>alert("最小測試成功"));
+
 (()=>{
-alert("game.js 已成功啟動");
+
 const D=window.GAME_DATA||{};
 const KEY="yunchuan-v06-save";
 
@@ -44,7 +44,7 @@ function modeHome(){
   updateResume();
 }
 
-function pickMode(mode){alert("按鈕成功："+mode);
+function pickMode(mode){
   state={
     mode:mode,
     char:null,
