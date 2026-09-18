@@ -44,7 +44,7 @@ function modeHome(){
   updateResume();
 }
 
-function pickMode(mode){
+function pickMode(mode){alert("按鈕成功："+mode);
   state={
     mode:mode,
     char:null,
