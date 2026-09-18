@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>暈船啦！</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <div>暈船啦！・VERSION 2.0</div>
+    <h1>戀愛劇情</h1>
+  </header>
+
+  <main>
+
+    <h2 id="characterName">正在載入角色...</h2>
+
+    <div id="story">
+      你們的故事，現在開始。
+    </div>
+
+    <br>
+
+    <button onclick="nextStory()">
+      繼續劇情 ❤️
+    </button>
+
+    <br><br>
+
+    <button onclick="location.href='index.html'">
+      回到模式首頁
+    </button>
+
+  </main>
+
+</div>
+
+<script>
+const p = new URLSearchParams(location.search);
+const character = p.get("character") || "神秘角色";
+
+document.getElementById("characterName").textContent =
+  "你選擇了：" + character;
+
+let step = 0;
+
+const stories = [
+  "第一次見面，你突然感覺心跳快了一點。",
+  "對方看著你笑了一下，你開始不知道該說什麼。",
+  "你們交換了聯絡方式，故事似乎才剛開始。",
+  "晚上，你的手機突然亮了起來……是對方傳來的訊息。"
+];
+
+function nextStory(){
+  if(step < stories.length){
+    document.getElementById("story").textContent = stories[step];
+    step++;
+  }else{
+    document.getElementById("story").textContent =
+      "❤️ 第一段故事結束，新的戀愛篇章即將開始。";
+  }
+}}
+</script>
+
+</body>
+</html>
