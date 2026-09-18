@@ -3,28 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>暈船啦！角色劇情</title>
+  <title>暈船啦！角色互動</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
 <div class="app">
 
 <header>
-  <div>暈船啦！・VERSION 4.0</div>
-  <h1>角色專屬劇情</h1>
+  <div>暈船啦！・VERSION 4.1</div>
+  <h1>角色互動劇情</h1>
 </header>
 
 <main>
 
   <h2 id="characterName">正在載入角色...</h2>
-
   <p id="personality"></p>
 
   <p>
-    好感度 ❤️
-    <strong id="score">50</strong>
+    好感度 ❤️ <strong id="score">50</strong>
   </p>
 
   <div id="story"></div>
@@ -39,6 +36,14 @@
     <button id="choiceC" type="button"></button>
   </div>
 
+  <div id="reactionArea" style="display:none;">
+    <p id="reaction"></p>
+    <br>
+    <button id="continueButton" type="button">
+      繼續 💗
+    </button>
+  </div>
+
   <br><br>
 
   <button type="button" onclick="location.href='index.html'">
@@ -46,7 +51,6 @@
   </button>
 
 </main>
-
 </div>
 
 <script>
@@ -54,34 +58,33 @@
 const params = new URLSearchParams(window.location.search);
 const character = params.get("character") || "神秘角色";
 
-const characterData = {
+const characters = {
 
   "妍妍 💄": {
     personality: "自信、愛漂亮，說話直接但其實很重感情。",
-    opening: "你在咖啡廳第一次見到妍妍。她放下手機，看著你笑了一下。",
     questions: [
       {
         story: "妍妍問你：你覺得我今天的打扮怎麼樣？",
         choices: [
-          ["A. 很適合妳，真的很好看 ❤️", 12],
-          ["B. 還不錯啊 😊", 5],
-          ["C. 我其實沒注意 😐", -10]
+          ["A. 很適合妳，真的很好看 ❤️", 12, "妍妍笑了：嘴巴這麼甜喔？不過我喜歡。"],
+          ["B. 還不錯啊 😊", 5, "妍妍挑眉：只有還不錯？"],
+          ["C. 我其實沒注意 😐", -10, "妍妍看著你：你還真的很誠實耶。"]
         ]
       },
       {
-        story: "妍妍說她最近工作很累，你會怎麼回答？",
+        story: "妍妍說：最近工作真的好累。",
         choices: [
-          ["A. 想說的話，我可以聽妳說。", 12],
-          ["B. 那妳要多休息。", 5],
-          ["C. 大家工作都很累啊。", -8]
+          ["A. 妳想說的話，我可以聽。", 12, "妍妍安靜了一下：你還滿貼心的。"],
+          ["B. 那妳要多休息。", 5, "妍妍點點頭：嗯，我會啦。"],
+          ["C. 大家工作都很累啊。", -8, "妍妍皺眉：你真的很不會聊天耶。"]
         ]
       },
       {
-        story: "散步時，妍妍突然問：你覺得我們有可能嗎？",
+        story: "散步時，妍妍問：你覺得我們有可能嗎？",
         choices: [
-          ["A. 我就是想認真認識妳 ❤️", 15],
-          ["B. 我們可以慢慢來。", 8],
-          ["C. 我還沒有想那麼多。", -5]
+          ["A. 我就是想認真認識妳 ❤️", 15, "妍妍害羞地笑了：那就看你的表現囉。"],
+          ["B. 我們可以慢慢來。", 8, "妍妍說：好啊，我也不想太快。"],
+          ["C. 我還沒有想那麼多。", -5, "妍妍淡淡地說：好吧，我知道了。"]
         ]
       }
     ]
@@ -89,30 +92,29 @@ const characterData = {
 
   "小雨 🌸": {
     personality: "溫柔、慢熟，喜歡安靜和有耐心的人。",
-    opening: "下著小雨的午後，你在書店第一次遇見小雨。",
     questions: [
       {
-        story: "小雨小聲問：你平常也喜歡看書嗎？",
+        story: "小雨問：你平常也喜歡看書嗎？",
         choices: [
-          ["A. 喜歡，有機會可以一起逛書店。", 12],
-          ["B. 偶爾會看。", 5],
-          ["C. 我完全不看書。", -5]
+          ["A. 喜歡，可以一起逛書店。", 12, "小雨笑了：真的嗎？那我知道一家很棒的書店。"],
+          ["B. 偶爾會看。", 5, "小雨點點頭：有喜歡的類型嗎？"],
+          ["C. 我完全不看書。", -5, "小雨小聲說：原來是這樣。"]
         ]
       },
       {
-        story: "小雨說她在人多的地方容易緊張。",
+        story: "小雨說：我在人多的地方有點容易緊張。",
         choices: [
-          ["A. 沒關係，我們去安靜一點的地方。", 12],
-          ["B. 慢慢習慣就好。", 5],
-          ["C. 這有什麼好緊張的？", -10]
+          ["A. 我們去安靜一點的地方。", 12, "小雨笑著說：謝謝你注意到我的感受。"],
+          ["B. 慢慢習慣就好。", 5, "小雨說：嗯，我會試試看。"],
+          ["C. 這有什麼好緊張的？", -10, "小雨沉默了一下，沒有再說話。"]
         ]
       },
       {
-        story: "離開前，小雨問你：下次還會找我嗎？",
+        story: "離開前，小雨問：下次還會找我嗎？",
         choices: [
-          ["A. 當然，我很想再見到妳 ❤️", 15],
-          ["B. 有機會可以。", 5],
-          ["C. 再看看吧。", -5]
+          ["A. 當然，我很想再見到妳 ❤️", 15, "小雨低頭笑了：那我等你的訊息。"],
+          ["B. 有機會可以。", 5, "小雨點點頭：好。"],
+          ["C. 再看看吧。", -5, "小雨輕聲說：嗯，我知道了。"]
         ]
       }
     ]
@@ -120,30 +122,29 @@ const characterData = {
 
   "娜娜 ✨": {
     personality: "活潑、愛冒險，喜歡有趣又有行動力的人。",
-    opening: "朋友的聚會上，娜娜突然走過來主動跟你打招呼。",
     questions: [
       {
         story: "娜娜問：要不要等等一起去唱歌？",
         choices: [
-          ["A. 走啊！我奉陪到底 🎤", 12],
-          ["B. 可以去看看。", 5],
-          ["C. 我想先回家。", -8]
+          ["A. 走啊！我奉陪到底 🎤", 12, "娜娜大笑：這才對嘛！"],
+          ["B. 可以去看看。", 5, "娜娜說：到了你就會想唱啦。"],
+          ["C. 我想先回家。", -8, "娜娜嘟嘴：這麼快就要走喔？"]
         ]
       },
       {
-        story: "娜娜說她最討厭約會無聊，你怎麼回答？",
+        story: "娜娜說：我最討厭無聊的約會。",
         choices: [
-          ["A. 那我們來一場說走就走的小旅行。", 15],
-          ["B. 我可以想一些活動。", 8],
-          ["C. 約會不就吃飯而已？", -10]
+          ["A. 那來場說走就走的小旅行！", 15, "娜娜眼睛一亮：你認真的？我可以現在出發！"],
+          ["B. 我可以想一些活動。", 8, "娜娜笑著說：好，那交給你安排。"],
+          ["C. 約會不就吃飯而已？", -10, "娜娜搖頭：不行不行，太無聊了。"]
         ]
       },
       {
         story: "娜娜笑著問：跟我相處會不會太累？",
         choices: [
-          ["A. 不會，我覺得很有趣 ❤️", 12],
-          ["B. 還可以啦。", 5],
-          ["C. 好像真的有一點。", -5]
+          ["A. 不會，我覺得很有趣 ❤️", 12, "娜娜笑了：那你要跟得上我喔！"],
+          ["B. 還可以啦。", 5, "娜娜說：什麼叫還可以啦！"],
+          ["C. 好像真的有一點。", -5, "娜娜瞪你一眼：喂！"]
         ]
       }
     ]
@@ -151,30 +152,29 @@ const characterData = {
 
   "阿哲 😎": {
     personality: "外表酷酷的，其實很細心，不太擅長直接表達感情。",
-    opening: "你在朋友聚餐時認識阿哲，他默默幫你拉開了椅子。",
     questions: [
       {
         story: "阿哲問：今天想吃什麼？我都可以。",
         choices: [
-          ["A. 那我們一起選吧 😊", 10],
-          ["B. 你決定就好。", 5],
-          ["C. 隨便。", -5]
+          ["A. 那我們一起選吧 😊", 10, "阿哲笑了一下：好，一起看。"],
+          ["B. 你決定就好。", 5, "阿哲說：那我帶妳去一家我喜歡的。"],
+          ["C. 隨便。", -5, "阿哲停了一下：隨便是最難選的。"]
         ]
       },
       {
-        story: "阿哲突然說：妳好像跟我想像的不太一樣。",
+        story: "阿哲說：妳跟我想像的不太一樣。",
         choices: [
-          ["A. 那是變好還是變壞？😏", 12],
-          ["B. 是嗎？", 5],
-          ["C. 你想像我幹嘛？", -5]
+          ["A. 那是變好還是變壞？😏", 12, "阿哲笑了：比我想像的更有趣。"],
+          ["B. 是嗎？", 5, "阿哲點頭：嗯，是好的那種。"],
+          ["C. 你想像我幹嘛？", -5, "阿哲尷尬地說：沒有啦，當我沒說。"]
         ]
       },
       {
         story: "回家前，阿哲問：我可以傳訊息給妳嗎？",
         choices: [
-          ["A. 當然可以 ❤️", 15],
-          ["B. 可以啊。", 8],
-          ["C. 有事情再傳吧。", -8]
+          ["A. 當然可以 ❤️", 15, "阿哲笑了：那妳等等記得看手機。"],
+          ["B. 可以啊。", 8, "阿哲點頭：好。"],
+          ["C. 有事情再傳吧。", -8, "阿哲沉默了一下：嗯，好。"]
         ]
       }
     ]
@@ -182,30 +182,29 @@ const characterData = {
 
   "子豪 ☕": {
     personality: "成熟、穩重，喜歡聊天，也很重視生活中的小細節。",
-    opening: "你走進咖啡店，子豪已經替你留好了靠窗的位置。",
     questions: [
       {
         story: "子豪問：今天過得還好嗎？",
         choices: [
-          ["A. 跟你見面後變好了 😊", 12],
-          ["B. 還不錯。", 5],
-          ["C. 就那樣。", -5]
+          ["A. 跟你見面後變好了 😊", 12, "子豪笑了：那今天這杯咖啡值得了。"],
+          ["B. 還不錯。", 5, "子豪說：那就好。"],
+          ["C. 就那樣。", -5, "子豪問：是不是發生什麼事了？"]
         ]
       },
       {
-        story: "子豪問你對未來有什麼期待。",
+        story: "子豪問：你對未來有什麼期待？",
         choices: [
-          ["A. 希望找到能一起生活的人。", 12],
-          ["B. 先把現在過好。", 8],
-          ["C. 我從來沒想過。", 0]
+          ["A. 希望找到能一起生活的人。", 12, "子豪微笑：這個答案我很喜歡。"],
+          ["B. 先把現在過好。", 8, "子豪點頭：我也覺得現在很重要。"],
+          ["C. 我從來沒想過。", 0, "子豪說：沒關係，有時候答案會慢慢出現。"]
         ]
       },
       {
         story: "子豪說：跟妳聊天讓我覺得很舒服。",
         choices: [
-          ["A. 我也是 ❤️", 15],
-          ["B. 謝謝你。", 5],
-          ["C. 你對大家都這樣說嗎？", -5]
+          ["A. 我也是 ❤️", 15, "子豪笑了：那我們下次再一起喝咖啡。"],
+          ["B. 謝謝你。", 5, "子豪說：不用客氣，我是認真的。"],
+          ["C. 你對大家都這樣說嗎？", -5, "子豪笑了一下：妳好像不太相信我。"]
         ]
       }
     ]
@@ -213,30 +212,29 @@ const characterData = {
 
   "小宇 🎧": {
     personality: "安靜、有自己的世界，喜歡音樂，熟了之後話很多。",
-    opening: "你第一次見到小宇時，他正戴著耳機聽音樂。",
     questions: [
       {
         story: "小宇把一邊耳機遞給你：要聽聽看嗎？",
         choices: [
-          ["A. 好啊，我想聽你喜歡的歌 🎧", 12],
-          ["B. 可以啊。", 5],
-          ["C. 不用了。", -5]
+          ["A. 好啊，我想聽你喜歡的歌 🎧", 12, "小宇笑了：這首我最近每天都在聽。"],
+          ["B. 可以啊。", 5, "小宇把耳機輕輕遞給你。"],
+          ["C. 不用了。", -5, "小宇點頭，把耳機戴了回去。"]
         ]
       },
       {
         story: "小宇問：你有沒有一首永遠聽不膩的歌？",
         choices: [
-          ["A. 有，下次分享給你。", 10],
-          ["B. 應該有吧。", 5],
-          ["C. 我很少聽音樂。", -5]
+          ["A. 有，下次分享給你。", 10, "小宇說：好，我會等。"],
+          ["B. 應該有吧。", 5, "小宇笑著說：想到再告訴我。"],
+          ["C. 我很少聽音樂。", -5, "小宇愣了一下：那我可以推薦一些給妳。"]
         ]
       },
       {
-        story: "小宇說：其實我平常不太會跟陌生人聊這麼多。",
+        story: "小宇說：我平常不太會跟陌生人聊這麼多。",
         choices: [
-          ["A. 那我是不是有點特別？❤️", 15],
-          ["B. 今天聊得很開心。", 8],
-          ["C. 可能你今天話比較多。", -5]
+          ["A. 那我是不是有點特別？❤️", 15, "小宇害羞地笑了：可能吧。"],
+          ["B. 今天聊得很開心。", 8, "小宇說：我也是。"],
+          ["C. 可能你今天話比較多。", -5, "小宇笑了一下：也許吧。"]
         ]
       }
     ]
@@ -244,13 +242,16 @@ const characterData = {
 
 };
 
-const data = characterData[character] || characterData["妍妍 💄"];
+const data = characters[character] || characters["妍妍 💄"];
 
 let score = 50;
-let round = -1;
+let round = 0;
 
 const storyBox = document.getElementById("story");
 const choicesBox = document.getElementById("choices");
+const reactionArea = document.getElementById("reactionArea");
+const reactionBox = document.getElementById("reaction");
+
 const choiceA = document.getElementById("choiceA");
 const choiceB = document.getElementById("choiceB");
 const choiceC = document.getElementById("choiceC");
@@ -260,8 +261,6 @@ document.getElementById("characterName").textContent =
 
 document.getElementById("personality").textContent =
   data.personality;
-
-storyBox.textContent = data.opening;
 
 function showQuestion() {
 
@@ -274,49 +273,61 @@ function showQuestion() {
   choiceC.textContent = q.choices[2][0];
 
   choiceA.onclick = function() {
-    choose(q.choices[0][1]);
+    choose(q.choices[0]);
   };
 
   choiceB.onclick = function() {
-    choose(q.choices[1][1]);
+    choose(q.choices[1]);
   };
 
   choiceC.onclick = function() {
-    choose(q.choices[2][1]);
+    choose(q.choices[2]);
   };
 }
 
-function choose(points) {
+function choose(choice) {
 
-  score += points;
+  score += choice[1];
 
   if (score > 100) score = 100;
   if (score < 0) score = 0;
 
   document.getElementById("score").textContent = score;
 
+  reactionBox.textContent = choice[2];
+
+  choicesBox.style.display = "none";
+  reactionArea.style.display = "block";
+}
+
+document.getElementById("continueButton").onclick = function() {
+
   round++;
 
+  reactionArea.style.display = "none";
+
   if (round < data.questions.length) {
+    choicesBox.style.display = "block";
     showQuestion();
   } else {
     showEnding();
   }
-}
+};
 
 function showEnding() {
 
   choicesBox.style.display = "none";
+  reactionArea.style.display = "none";
 
   if (score >= 80) {
     storyBox.textContent =
       "💗 心動結局：你和 " + character +
-      " 都感覺到了彼此的心意，決定開始一段新的關係。";
+      " 都感覺到了彼此的心意，決定開始新的戀愛故事。";
   }
   else if (score >= 55) {
     storyBox.textContent =
       "💕 曖昧結局：你和 " + character +
-      " 決定繼續聯絡，故事還沒有結束。";
+      " 決定繼續聯絡，看看這段關係會走向哪裡。";
   }
   else {
     storyBox.textContent =
@@ -325,7 +336,6 @@ function showEnding() {
   }
 }
 
-round = 0;
 showQuestion();
 
 </script>
