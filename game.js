@@ -2,8 +2,11 @@
 (()=>{
 
 const D=window.GAME_DATA;
-  alert("角色資料："+Object.keys(D.characters||{}).join(","));
+  
+    
+
 const KEY="yunchuan-v06-save";
+  
 
 let state={
   mode:null,
