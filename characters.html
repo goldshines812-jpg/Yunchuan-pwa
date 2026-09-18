@@ -60,8 +60,9 @@ people.forEach(function(name){
   button.textContent = name;
 
   button.onclick = function(){
-    alert("你選擇了：" + name);
-  };
+    location.href = "game.html?character=" + encodeURIComponent(name);
+};
+
 
   list.appendChild(button);
 });
