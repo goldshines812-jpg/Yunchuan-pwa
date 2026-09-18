@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>暈船啦！戀愛劇情</title>
+  <title>暈船啦！戀愛互動</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,23 +12,44 @@
 <div class="app">
 
   <header>
-    <div>暈船啦！・VERSION 2.1</div>
-    <h1>戀愛劇情</h1>
+    <div>暈船啦！・VERSION 3.0</div>
+    <h1>戀愛互動</h1>
   </header>
 
   <main>
 
     <h2 id="characterName">正在載入角色...</h2>
 
+    <p>
+      好感度 ❤️
+      <strong id="score">50</strong>
+    </p>
+
     <div id="story">
-      你們的故事，現在開始。
+      你們第一次見面，對方微笑著看著你。
     </div>
 
     <br>
 
-    <button id="nextButton" type="button">
-      繼續劇情 💗
-    </button>
+    <div id="choices">
+
+      <button type="button" onclick="choose(10)">
+        A. 主動跟對方打招呼 😊
+      </button>
+
+      <br><br>
+
+      <button type="button" onclick="choose(5)">
+        B. 害羞地笑一下 😳
+      </button>
+
+      <br><br>
+
+      <button type="button" onclick="choose(-10)">
+        C. 假裝沒看到 😐
+      </button>
+
+    </div>
 
     <br><br>
 
@@ -41,36 +62,77 @@
 </div>
 
 <script>
+
 const params = new URLSearchParams(window.location.search);
 const character = params.get("character") || "神秘角色";
 
 document.getElementById("characterName").textContent =
-  "你選擇了：" + character;
+  "你正在和 " + character + " 約會";
 
-let step = 0;
+let score = 50;
+let round = 0;
 
 const stories = [
-  "第一次見面，你突然感覺心跳快了一點。",
-  "對方看著你笑了一下，你開始不知道該說什麼。",
-  "你們交換了聯絡方式，故事似乎才剛開始。",
-  "晚上，你的手機突然亮了起來……是對方傳來的訊息。"
+  "對方問你：平常休假喜歡做什麼？",
+  "聊天聊了一會兒，對方突然問：你現在有喜歡的人嗎？",
+  "約會快結束了，對方看著你問：下次還可以再見面嗎？"
 ];
 
-const storyBox = document.getElementById("story");
-const nextButton = document.getElementById("nextButton");
+function choose(points) {
 
-nextButton.addEventListener("click", function () {
+  score = score + points;
 
-  if (step < stories.length) {
-    storyBox.textContent = stories[step];
-    step++;
-  } else {
-    storyBox.textContent =
-      "💗 第一段故事結束，新的戀愛篇章即將開始。";
-    nextButton.textContent = "故事已完成 💕";
+  if (score > 100) {
+    score = 100;
   }
 
-});
+  if (score < 0) {
+    score = 0;
+  }
+
+  document.getElementById("score").textContent = score;
+
+  if (round < stories.length) {
+
+    document.getElementById("story").textContent =
+      stories[round];
+
+    round++;
+
+  } else {
+
+    showEnding();
+
+  }
+
+}
+
+function showEnding() {
+
+  const story = document.getElementById("story");
+  const choices = document.getElementById("choices");
+
+  choices.style.display = "none";
+
+  if (score >= 80) {
+
+    story.textContent =
+      "💗 完美結局：你們對彼此都有好感，新的戀愛故事正式開始！";
+
+  } else if (score >= 50) {
+
+    story.textContent =
+      "💕 曖昧結局：你們決定繼續聯絡，看看未來會發生什麼。";
+
+  } else {
+
+    story.textContent =
+      "💔 朋友結局：這次沒有擦出愛情火花，但也許你們更適合當朋友。";
+
+  }
+
+}
+
 </script>
 
 </body>
