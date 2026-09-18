@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const mode = button.getAttribute("data-mode");
 
-      alert("按鈕成功！模式：" + mode);
+      window.location.href = "characters.html?mode=" + mode;
 
     });
   });
