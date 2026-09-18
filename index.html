@@ -1,43 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#8b3a62">
-<link rel="manifest" href="manifest.json"><link rel="stylesheet" href="style.css">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>暈船啦！</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#8b3a62">
+  <title>暈船啦！</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
 <main class="app">
-<header><div><small>·暈船啦！ · VERSION 1.0 CHARACTERS</small><h1>暈船啦！</h1></div><button id="homeBtn">模式首頁</button></header>
 
-<section id="hud" class="hidden">
-  <div class="relation"><span id="relation">陌生</span><small id="chapter">第 1 章</small></div>
-  <div class="scores"><div>❤️<b id="love">0</b><small>好感</small></div><div>🤝<b id="trust">0</b><small>信任</small></div><div>💘<b id="spark">0</b><small>心動</small></div></div>
-  <div class="progress"><i id="progressBar"></i></div>
-</section>
+  <header>
+    <div class="version">暈船啦！・VERSION 2.0</div>
+    <h1>暈船啦！</h1>
+    <button id="homeBtn" class="small-btn">模式首頁</button>
+  </header>
 
-<section id="modes">
-<h2>選擇遊戲模式</h2>
-<button data-mode="boy">😎 <b>男生模式</b><span>從認識、聊天一路發展關係</span></button>
-<button data-mode="girl">💄 <b>女生模式</b><span>觀察意圖、回應與表達界線</span></button>
-<button data-mode="free">🎭 <b>自由模式</b><span>不限制性別，專注互動判斷</span></button>
-<div class="savebox">💾 0.5 自動存檔 <button id="continueBtn">繼續上次進度</button><button id="resetBtn">清除進度</button></div>
-</section>
+  <!-- 模式選擇 -->
+  <section id="modeScreen">
 
-<section id="characters" class="hidden"><h2>選擇故事角色</h2><div id="characterList"></div></section>
+    <h2>選擇遊戲模式</h2>
 
-<section id="game" class="card hidden">
-<div class="sceneTop"><span id="stage"></span><span id="turn"></span></div>
-<div class="person"><div id="avatar"></div><div><h2 id="name"></h2><small id="mood"></small></div></div>
-<p id="dialog"></p>
-<div id="memoryBox" class="memory hidden"></div>
-<div id="analysis" class="analysis hidden"><b>💡 互動解析</b><p id="analysisText"></p></div>
-<div id="choices"></div>
-</section>
+    <button class="mode-btn" data-mode="boy">
+      <span class="emoji">😎</span>
+      <span>
+        <b>男生模式</b>
+        <small>從認識、聊天一路發展關係</small>
+      </span>
+    </button>
 
-<section id="ending" class="card hidden"><div class="endingIcon" id="endingIcon">✨</div><h2 id="endingTitle"></h2><p id="endingText"></p><div id="endingStats"></div><button id="restartBtn">重新開始這條故事</button><button id="modeBtn">回模式首頁</button></section>
+    <button class="mode-btn" data-mode="girl">
+      <span class="emoji">💄</span>
+      <span>
+        <b>女生模式</b>
+        <small>觀察意圖、回應與表達界線</small>
+      </span>
+    </button>
 
-<footer>互動結果是情境模擬，不代表特定性別或個性一定會如此反應。明確拒絕應被尊重。</footer>
-</main><script>if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js"));</script>
-  <script src="scenarios.js?v=18"></script><script src="game.js?v=18"></script>
+    <button class="mode-btn" data-mode="free">
+      <span class="emoji">🎭</span>
+      <span>
+        <b>自由模式</b>
+        <small>不限制性別，專注互動判斷</small>
+      </span>
+    </button>
+
+  </section>
+
+  <!-- 角色選擇 -->
+  <section id="characterScreen" class="hidden">
+
+    <h2>選擇故事角色</h2>
+
+    <div id="characterList"></div>
+
+  </section>
+
+  <!-- 遊戲畫面 -->
+  <section id="gameScreen" class="hidden">
+
+    <div id="characterInfo"></div>
+
+    <div class="score-box">
+      ❤️ 好感 <b id="affection">0</b>
+      🤝 信任 <b id="trust">0</b>
+      ✨ 心動 <b id="spark">0</b>
+    </div>
+
+    <div class="story-box">
+
+      <h2 id="storyTitle"></h2>
+
+      <p id="storyText"></p>
+
+      <div id="choices"></div>
+
+    </div>
+
+    <div id="replyBox" class="reply-box hidden"></div>
+
+  </section>
+
+  <footer>
+    互動結果是情境模擬，不代表特定性別或個性一定會如此反應。<br>
+    明確拒絕應被尊重。
+  </footer>
+
+</main>
+
+<script src="scenarios.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
