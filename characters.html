@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>選擇角色｜暈船啦！</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <div>暈船啦！・VERSION 2.0</div>
+    <h1>選擇角色</h1>
+  </header>
+
+  <main>
+    <div id="modeText">正在載入模式...</div>
+
+    <div id="characterList"></div>
+
+    <br>
+    <button onclick="location.href='index.html'">
+      回到模式首頁
+    </button>
+  </main>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const mode = params.get("mode");
+
+const modeText = document.getElementById("modeText");
+const list = document.getElementById("characterList");
+
+let characters = [];
+
+if (mode === "boy") {
+  modeText.textContent = "😎 男生模式・選擇你想認識的角色";
+
+  characters = [
+    ["妍妍
