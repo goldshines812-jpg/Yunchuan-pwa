@@ -3,7 +3,7 @@
 (()=>{
 
 const D=window.GAME_DATA;
-  
+  alert("資料載入：" + (D ? "成功" : "失敗"));
     
 
 const KEY="yunchuan-v06-save";
